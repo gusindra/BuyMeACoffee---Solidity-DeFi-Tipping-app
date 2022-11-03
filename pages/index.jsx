@@ -20,7 +20,6 @@ export default function Home() {
 
   const onCoffeeChange = (event) => {
     setCoffee(event.currentTarget.value);
-    console.log(coffee);
   }
   
   const onNameChange = (event) => {
@@ -85,7 +84,7 @@ export default function Home() {
         const coffeeTxn = await buyMeACoffee.buyCoffee(
           name ? name : "anon",
           message ? message : "Enjoy your coffee!",
-          {value: ethers.utils.parseEther("0.001")}
+          {value: ethers.utils.parseEther(coffee>=1? "" +coffee*1/1000 : "0.001")}
         );
 
         await coffeeTxn.wait();
@@ -195,13 +194,13 @@ export default function Home() {
                       <div className="mt-4">
                          <input type="radio" id="null" name="coffee" value="0" className="hidden" />
                         <label className="block text-gray-700 text-sm font-bold mb-2">Coffee</label>        
-                      <ul className="grid gap-6 w-full md:grid-cols-3">
+                      <ul className="flex gap-4">
                           <li>
                               <input type="radio" id="small" name="coffee" value="1" className="hidden peer" onChange={onCoffeeChange} checked={coffee == 1} />
                               <label htmlFor="small" className="inline-flex justify-between items-center p-5 w-full text-gray-500 bg-gray-200 rounded-lg border border-gray-200 cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 peer-checked:bg-blue-100 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-200 dark:hover:bg-gray-700" >                           
                                   <div className="block">
                                       <div className="w-full text-lg font-semibold">Small Coffee</div>
-                                      <div className="w-full">for 0.001ETH</div>
+                                      <div className="w-full">for 0.001GOR</div>
                                   </div>
                               </label>
                           </li>
@@ -210,7 +209,7 @@ export default function Home() {
                               <label htmlFor="medium" className="inline-flex justify-between items-center p-5 w-full text-gray-500 bg-gray-200 rounded-lg border border-gray-200 cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 peer-checked:bg-blue-100 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-200 dark:hover:bg-gray-700">
                                   <div className="block">
                                       <div className="w-full text-lg font-semibold">Medium Coffee</div>
-                                      <div className="w-full">for 0.003ETH</div>
+                                      <div className="w-full">for 0.003GOR</div>
                                   </div>
                               </label>
                           </li>
@@ -219,7 +218,7 @@ export default function Home() {
                               <label htmlFor="large" className="inline-flex justify-between items-center p-5 w-full text-gray-500 bg-gray-200 rounded-lg border border-gray-200 cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 peer-checked:bg-blue-100 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-200 dark:hover:bg-gray-700">
                                   <div className="block">
                                       <div className="w-full text-lg font-semibold">Large Coffee</div>
-                                      <div className="w-full">for 0.005ETH</div>
+                                      <div className="w-full">for 0.005GOR</div>
                                   </div>
                               </label>
                           </li>
@@ -239,7 +238,7 @@ export default function Home() {
                       </div>
                     
                       <div className="mt-8">
-                          <button onClick={buyCoffee} className="bg-gray-700 text-white font-bold py-2 px-4 w-full rounded hover:bg-gray-600">Support {coffee?(<div>{coffee*1/1000}ETH</div> ):(1)}</button>
+                          <button onClick={buyCoffee} className="bg-gray-700 text-white font-bold py-2 px-4 w-full rounded hover:bg-gray-600">Support {coffee?(<div>{coffee*1/1000}GOR</div> ):(1)}</button>
                       </div>
                     </form>
                   </div>
@@ -264,8 +263,9 @@ export default function Home() {
           <div key={idx} >
             <div className="ball1">
               <div className="text mt-5">
-                "{memo.message}"
-                <p className="text-xs mt-10">{memo.name} at {memo.timestamp.toString()}</p>
+                <br></br>
+                <p>"{memo.message}"</p>
+                <p className="text-xs mt-5">- {memo.name} <span className="hidden">at {memo.timestamp.toString()}</span></p>
               </div>
             </div>
           </div>
